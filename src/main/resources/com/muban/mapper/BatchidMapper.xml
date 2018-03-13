@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.muban.mapper.BatchidMapper" >
+  <resultMap id="BaseResultMap" type="com.muban.pojo.Batchid" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="WorkOrderId" property="workorderid" jdbcType="VARCHAR" />
+    <result column="BatchNo" property="batchno" jdbcType="VARCHAR" />
+    <result column="MBatchNo" property="mbatchno" jdbcType="VARCHAR" />
+    <result column="UpdatedAt" property="updatedat" jdbcType="TIMESTAMP" />
+    <result column="MaterialNo" property="materialno" jdbcType="VARCHAR" />
+    <result column="SourceType" property="sourcetype" jdbcType="VARCHAR" />
+    <result column="SourceId" property="sourceid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, WorkOrderId, BatchNo, MBatchNo, UpdatedAt, MaterialNo, SourceType, SourceId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.muban.pojo.BatchidExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BatchId
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectBatchNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select Top 1
+    <include refid="Base_Column_List" />
+    from BatchId
+    where WorkOrderId = #{workorderid} ORDER BY UpdatedAt desc
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from BatchId
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from BatchId
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.muban.pojo.BatchidExample" >
+    delete from BatchId
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.muban.pojo.Batchid" >
+    insert into BatchId (id, WorkOrderId, BatchNo, 
+      MBatchNo, UpdatedAt, MaterialNo, 
+      SourceType, SourceId)
+    values (#{id,jdbcType=BIGINT}, #{workorderid,jdbcType=VARCHAR}, #{batchno,jdbcType=VARCHAR}, 
+      #{mbatchno,jdbcType=VARCHAR}, #{updatedat,jdbcType=TIMESTAMP}, #{materialno,jdbcType=VARCHAR}, 
+      #{sourcetype,jdbcType=VARCHAR}, #{sourceid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.muban.pojo.Batchid" >
+    insert into BatchId
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="workorderid != null" >
+        WorkOrderId,
+      </if>
+      <if test="batchno != null" >
+        BatchNo,
+      </if>
+      <if test="mbatchno != null" >
+        MBatchNo,
+      </if>
+      <if test="updatedat != null" >
+        UpdatedAt,
+      </if>
+      <if test="materialno != null" >
+        MaterialNo,
+      </if>
+      <if test="sourcetype != null" >
+        SourceType,
+      </if>
+      <if test="sourceid != null" >
+        SourceId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="workorderid != null" >
+        #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="batchno != null" >
+        #{batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="mbatchno != null" >
+        #{mbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedat != null" >
+        #{updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="materialno != null" >
+        #{materialno,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null" >
+        #{sourcetype,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceid != null" >
+        #{sourceid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.muban.pojo.BatchidExample" resultType="java.lang.Integer" >
+    select count(*) from BatchId
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update BatchId
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.workorderid != null" >
+        WorkOrderId = #{record.workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchno != null" >
+        BatchNo = #{record.batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbatchno != null" >
+        MBatchNo = #{record.mbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedat != null" >
+        UpdatedAt = #{record.updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.materialno != null" >
+        MaterialNo = #{record.materialno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcetype != null" >
+        SourceType = #{record.sourcetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceid != null" >
+        SourceId = #{record.sourceid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update BatchId
+    set id = #{record.id,jdbcType=BIGINT},
+      WorkOrderId = #{record.workorderid,jdbcType=VARCHAR},
+      BatchNo = #{record.batchno,jdbcType=VARCHAR},
+      MBatchNo = #{record.mbatchno,jdbcType=VARCHAR},
+      UpdatedAt = #{record.updatedat,jdbcType=TIMESTAMP},
+      MaterialNo = #{record.materialno,jdbcType=VARCHAR},
+      SourceType = #{record.sourcetype,jdbcType=VARCHAR},
+      SourceId = #{record.sourceid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.muban.pojo.Batchid" >
+    update BatchId
+    <set >
+      <if test="workorderid != null" >
+        WorkOrderId = #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="batchno != null" >
+        BatchNo = #{batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="mbatchno != null" >
+        MBatchNo = #{mbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedat != null" >
+        UpdatedAt = #{updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="materialno != null" >
+        MaterialNo = #{materialno,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null" >
+        SourceType = #{sourcetype,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceid != null" >
+        SourceId = #{sourceid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.muban.pojo.Batchid" >
+    update BatchId
+    set WorkOrderId = #{workorderid,jdbcType=VARCHAR},
+      BatchNo = #{batchno,jdbcType=VARCHAR},
+      MBatchNo = #{mbatchno,jdbcType=VARCHAR},
+      UpdatedAt = #{updatedat,jdbcType=TIMESTAMP},
+      MaterialNo = #{materialno,jdbcType=VARCHAR},
+      SourceType = #{sourcetype,jdbcType=VARCHAR},
+      SourceId = #{sourceid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

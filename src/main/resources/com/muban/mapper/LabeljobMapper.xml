@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muban.mapper.LabeljobMapper">
+  <resultMap id="BaseResultMap" type="com.muban.pojo.Labeljob">
+    <id column="JobId" jdbcType="CHAR" property="jobid" />
+    <result column="JobOwner" jdbcType="VARCHAR" property="jobowner" />
+    <result column="JobType" jdbcType="VARCHAR" property="jobtype" />
+    <result column="JobStatus" jdbcType="INTEGER" property="jobstatus" />
+    <result column="CreatedBy" jdbcType="VARCHAR" property="createdby" />
+    <result column="CreatedDttm" jdbcType="TIMESTAMP" property="createddttm" />
+    <result column="UpdatedBy" jdbcType="VARCHAR" property="updatedby" />
+    <result column="UpdatedDttm" jdbcType="TIMESTAMP" property="updateddttm" />
+    <result column="Template" jdbcType="VARCHAR" property="template" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.muban.pojo.Labeljob">
+    insert into LabelJob
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobid != null">
+        JobId,
+      </if>
+      <if test="jobowner != null">
+        JobOwner,
+      </if>
+      <if test="jobtype != null">
+        JobType,
+      </if>
+      <if test="jobstatus != null">
+        JobStatus,
+      </if>
+      <if test="createdby != null">
+        CreatedBy,
+      </if>
+      <if test="createddttm != null">
+        CreatedDttm,
+      </if>
+      <if test="updatedby != null">
+        UpdatedBy,
+      </if>
+      <if test="updateddttm != null">
+        UpdatedDttm,
+      </if>
+      <if test="template != null">
+        Template,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobid != null">
+        #{jobid,jdbcType=CHAR},
+      </if>
+      <if test="jobowner != null">
+        #{jobowner,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtype != null">
+        #{jobtype,jdbcType=VARCHAR},
+      </if>
+      <if test="jobstatus != null">
+        #{jobstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createdby != null">
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="createddttm != null">
+        #{createddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null">
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateddttm != null">
+        #{updateddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="template != null">
+        #{template,jdbcType=VARCHAR},
+      </if>
+
+    </trim>
+  </insert>
+</mapper>

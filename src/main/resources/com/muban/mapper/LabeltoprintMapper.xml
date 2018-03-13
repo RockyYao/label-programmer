@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muban.mapper.LabeltoprintMapper">
+  <resultMap id="BaseResultMap" type="com.muban.pojo.Labeltoprint">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SAPMaterialNo" jdbcType="VARCHAR" property="sapmaterialno" />
+    <result column="CustomerName" jdbcType="VARCHAR" property="customername" />
+    <result column="ProductNo" jdbcType="VARCHAR" property="productno" />
+    <result column="ProductName" jdbcType="VARCHAR" property="productname" />
+    <result column="VersionIndex" jdbcType="VARCHAR" property="versionindex" />
+    <result column="MaterialNo" jdbcType="VARCHAR" property="materialno" />
+    <result column="MaterialBatchNo" jdbcType="VARCHAR" property="materialbatchno" />
+    <result column="EmployNo" jdbcType="VARCHAR" property="employno" />
+    <result column="TonerName" jdbcType="VARCHAR" property="tonername" />
+    <result column="TonerBatchNo" jdbcType="VARCHAR" property="tonerbatchno" />
+    <result column="Weight" jdbcType="DECIMAL" property="weight" />
+    <result column="DifferentCode" jdbcType="VARCHAR" property="differentcode" />
+    <result column="Size" jdbcType="VARCHAR" property="size" />
+    <result column="VendorCode" jdbcType="VARCHAR" property="vendorcode" />
+    <result column="UpTimes" jdbcType="INTEGER" property="uptimes" />
+    <result column="NetWeight" jdbcType="DECIMAL" property="netweight" />
+    <result column="GrossWeight" jdbcType="DECIMAL" property="grossweight" />
+    <result column="ModelNo" jdbcType="VARCHAR" property="modelno" />
+    <result column="MaterialDescription" jdbcType="VARCHAR" property="materialdescription" />
+    <result column="PoNo" jdbcType="VARCHAR" property="pono" />
+    <result column="SAPMaterialBatchNo" jdbcType="VARCHAR" property="sapmaterialbatchno" />
+    <result column="BoxSequence" jdbcType="BIGINT" property="boxsequence" />
+    <result column="BoxNo" jdbcType="VARCHAR" property="boxno" />
+    <result column="BoxSum" jdbcType="BIGINT" property="boxsum" />
+    <result column="WorkOrder" jdbcType="VARCHAR" property="workorder" />
+    <result column="UOM" jdbcType="VARCHAR" property="uom" />
+    <result column="ShelfLife" jdbcType="VARCHAR" property="shelflife" />
+    <result column="WorkOrderQty" jdbcType="DECIMAL" property="workorderqty" />
+    <result column="FinishGoodNo" jdbcType="VARCHAR" property="finishgoodno" />
+    <result column="ProductTools" jdbcType="VARCHAR" property="producttools" />
+    <result column="WBS" jdbcType="VARCHAR" property="wbs" />
+    <result column="PrintTemplate" jdbcType="VARCHAR" property="printtemplate" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
+    <result column="Type" jdbcType="VARCHAR" property="type" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="PrintTime" jdbcType="TIMESTAMP" property="printtime" />
+    <result column="PrintByMachin" jdbcType="VARCHAR" property="printbymachin" />
+    <result column="ItemCode" jdbcType="VARCHAR" property="itemcode" />
+    <result column="Color" jdbcType="VARCHAR" property="color" />
+    <result column="MaterialName" jdbcType="VARCHAR" property="materialname" />
+    <result column="ProductionDate" jdbcType="VARCHAR" property="productiondate" />
+    <result column="JobId" jdbcType="CHAR" property="jobid" />
+    <result column="MaterSpec" jdbcType="VARCHAR" property="materspec" />
+    <result column="PrintQty" jdbcType="INTEGER" property="printqty" />
+    <result column="UBatchId" jdbcType="VARCHAR" property="ubatchid" />
+    <result column="QtySum" jdbcType="INTEGER" property="qtysum" />
+    <result column="BoxSzie" jdbcType="VARCHAR" property="boxszie" />
+    <result column="NotFull" jdbcType="VARCHAR" property="notfull" />
+    <result column="cnColor" jdbcType="VARCHAR" property="cncolor" />
+    <result column="MachineId" jdbcType="VARCHAR" property="machineid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <select id="selectByExample" parameterType="com.muban.pojo.LabeltoprintExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from LabelToPrint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LabelToPrint
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from LabelToPrint
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.muban.pojo.LabeltoprintExample">
+    delete from LabelToPrint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.muban.pojo.Labeltoprint">
+    insert into LabelToPrint (ID, SAPMaterialNo, CustomerName, 
+      ProductNo, ProductName, VersionIndex, 
+      MaterialNo, MaterialBatchNo, EmployNo, 
+      TonerName, TonerBatchNo, Weight, 
+      DifferentCode, Size, VendorCode, 
+      UpTimes, NetWeight, GrossWeight, 
+      ModelNo, MaterialDescription, PoNo, 
+      SAPMaterialBatchNo, BoxSequence, BoxNo, 
+      BoxSum, WorkOrder, UOM, 
+      ShelfLife, WorkOrderQty, FinishGoodNo, 
+      ProductTools, WBS, PrintTemplate, 
+      Status, Type, UpdateTime, 
+      PrintTime, PrintByMachin, ItemCode, 
+      Color, MaterialName, ProductionDate, 
+      JobId, MaterSpec, PrintQty, 
+      UBatchId, QtySum, BoxSzie, 
+      NotFull, cnColor, MachineId
+      )
+    values (#{id,jdbcType=INTEGER}, #{sapmaterialno,jdbcType=VARCHAR}, #{customername,jdbcType=VARCHAR}, 
+      #{productno,jdbcType=VARCHAR}, #{productname,jdbcType=VARCHAR}, #{versionindex,jdbcType=VARCHAR}, 
+      #{materialno,jdbcType=VARCHAR}, #{materialbatchno,jdbcType=VARCHAR}, #{employno,jdbcType=VARCHAR}, 
+      #{tonername,jdbcType=VARCHAR}, #{tonerbatchno,jdbcType=VARCHAR}, #{weight,jdbcType=DECIMAL}, 
+      #{differentcode,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{vendorcode,jdbcType=VARCHAR}, 
+      #{uptimes,jdbcType=INTEGER}, #{netweight,jdbcType=DECIMAL}, #{grossweight,jdbcType=DECIMAL}, 
+      #{modelno,jdbcType=VARCHAR}, #{materialdescription,jdbcType=VARCHAR}, #{pono,jdbcType=VARCHAR}, 
+      #{sapmaterialbatchno,jdbcType=VARCHAR}, #{boxsequence,jdbcType=BIGINT}, #{boxno,jdbcType=VARCHAR}, 
+      #{boxsum,jdbcType=BIGINT}, #{workorder,jdbcType=VARCHAR}, #{uom,jdbcType=VARCHAR}, 
+      #{shelflife,jdbcType=VARCHAR}, #{workorderqty,jdbcType=DECIMAL}, #{finishgoodno,jdbcType=VARCHAR}, 
+      #{producttools,jdbcType=VARCHAR}, #{wbs,jdbcType=VARCHAR}, #{printtemplate,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{printtime,jdbcType=TIMESTAMP}, #{printbymachin,jdbcType=VARCHAR}, #{itemcode,jdbcType=VARCHAR}, 
+      #{color,jdbcType=VARCHAR}, #{materialname,jdbcType=VARCHAR}, #{productiondate,jdbcType=VARCHAR}, 
+      #{jobid,jdbcType=CHAR}, #{materspec,jdbcType=VARCHAR}, #{printqty,jdbcType=INTEGER}, 
+      #{ubatchid,jdbcType=VARCHAR}, #{qtysum,jdbcType=INTEGER}, #{boxszie,jdbcType=VARCHAR}, 
+      #{notfull,jdbcType=VARCHAR}, #{cncolor,jdbcType=VARCHAR}, #{machineid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.muban.pojo.Labeltoprint">
+    insert into LabelToPrint
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="sapmaterialno != null">
+        SAPMaterialNo,
+      </if>
+      <if test="customername != null">
+        CustomerName,
+      </if>
+      <if test="productno != null">
+        ProductNo,
+      </if>
+      <if test="productname != null">
+        ProductName,
+      </if>
+      <if test="versionindex != null">
+        VersionIndex,
+      </if>
+      <if test="materialno != null">
+        MaterialNo,
+      </if>
+      <if test="materialbatchno != null">
+        MaterialBatchNo,
+      </if>
+      <if test="employno != null">
+        EmployNo,
+      </if>
+      <if test="tonername != null">
+        TonerName,
+      </if>
+      <if test="tonerbatchno != null">
+        TonerBatchNo,
+      </if>
+      <if test="weight != null">
+        Weight,
+      </if>
+      <if test="differentcode != null">
+        DifferentCode,
+      </if>
+      <if test="size != null">
+        Size,
+      </if>
+      <if test="vendorcode != null">
+        VendorCode,
+      </if>
+      <if test="uptimes != null">
+        UpTimes,
+      </if>
+      <if test="netweight != null">
+        NetWeight,
+      </if>
+      <if test="grossweight != null">
+        GrossWeight,
+      </if>
+      <if test="modelno != null">
+        ModelNo,
+      </if>
+      <if test="materialdescription != null">
+        MaterialDescription,
+      </if>
+      <if test="pono != null">
+        PoNo,
+      </if>
+      <if test="sapmaterialbatchno != null">
+        SAPMaterialBatchNo,
+      </if>
+      <if test="boxsequence != null">
+        BoxSequence,
+      </if>
+      <if test="boxno != null">
+        BoxNo,
+      </if>
+      <if test="boxsum != null">
+        BoxSum,
+      </if>
+      <if test="workorder != null">
+        WorkOrder,
+      </if>
+      <if test="uom != null">
+        UOM,
+      </if>
+      <if test="shelflife != null">
+        ShelfLife,
+      </if>
+      <if test="workorderqty != null">
+        WorkOrderQty,
+      </if>
+      <if test="finishgoodno != null">
+        FinishGoodNo,
+      </if>
+      <if test="producttools != null">
+        ProductTools,
+      </if>
+      <if test="wbs != null">
+        WBS,
+      </if>
+      <if test="printtemplate != null">
+        PrintTemplate,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="printtime != null">
+        PrintTime,
+      </if>
+      <if test="printbymachin != null">
+        PrintByMachin,
+      </if>
+      <if test="itemcode != null">
+        ItemCode,
+      </if>
+      <if test="color != null">
+        Color,
+      </if>
+      <if test="materialname != null">
+        MaterialName,
+      </if>
+      <if test="productiondate != null">
+        ProductionDate,
+      </if>
+      <if test="jobid != null">
+        JobId,
+      </if>
+      <if test="materspec != null">
+        MaterSpec,
+      </if>
+      <if test="printqty != null">
+        PrintQty,
+      </if>
+      <if test="ubatchid != null">
+        UBatchId,
+      </if>
+      <if test="qtysum != null">
+        QtySum,
+      </if>
+      <if test="boxszie != null">
+        BoxSzie,
+      </if>
+      <if test="notfull != null">
+        NotFull,
+      </if>
+      <if test="cncolor != null">
+        cnColor,
+      </if>
+      <if test="machineid != null">
+        MachineId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sapmaterialno != null">
+        #{sapmaterialno,jdbcType=VARCHAR},
+      </if>
+      <if test="customername != null">
+        #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="productno != null">
+        #{productno,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null">
+        #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="versionindex != null">
+        #{versionindex,jdbcType=VARCHAR},
+      </if>
+      <if test="materialno != null">
+        #{materialno,jdbcType=VARCHAR},
+      </if>
+      <if test="materialbatchno != null">
+        #{materialbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="employno != null">
+        #{employno,jdbcType=VARCHAR},
+      </if>
+      <if test="tonername != null">
+        #{tonername,jdbcType=VARCHAR},
+      </if>
+      <if test="tonerbatchno != null">
+        #{tonerbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="differentcode != null">
+        #{differentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorcode != null">
+        #{vendorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimes != null">
+        #{uptimes,jdbcType=INTEGER},
+      </if>
+      <if test="netweight != null">
+        #{netweight,jdbcType=DECIMAL},
+      </if>
+      <if test="grossweight != null">
+        #{grossweight,jdbcType=DECIMAL},
+      </if>
+      <if test="modelno != null">
+        #{modelno,jdbcType=VARCHAR},
+      </if>
+      <if test="materialdescription != null">
+        #{materialdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="pono != null">
+        #{pono,jdbcType=VARCHAR},
+      </if>
+      <if test="sapmaterialbatchno != null">
+        #{sapmaterialbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="boxsequence != null">
+        #{boxsequence,jdbcType=BIGINT},
+      </if>
+      <if test="boxno != null">
+        #{boxno,jdbcType=VARCHAR},
+      </if>
+      <if test="boxsum != null">
+        #{boxsum,jdbcType=BIGINT},
+      </if>
+      <if test="workorder != null">
+        #{workorder,jdbcType=VARCHAR},
+      </if>
+      <if test="uom != null">
+        #{uom,jdbcType=VARCHAR},
+      </if>
+      <if test="shelflife != null">
+        #{shelflife,jdbcType=VARCHAR},
+      </if>
+      <if test="workorderqty != null">
+        #{workorderqty,jdbcType=DECIMAL},
+      </if>
+      <if test="finishgoodno != null">
+        #{finishgoodno,jdbcType=VARCHAR},
+      </if>
+      <if test="producttools != null">
+        #{producttools,jdbcType=VARCHAR},
+      </if>
+      <if test="wbs != null">
+        #{wbs,jdbcType=VARCHAR},
+      </if>
+      <if test="printtemplate != null">
+        #{printtemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printtime != null">
+        #{printtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printbymachin != null">
+        #{printbymachin,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcode != null">
+        #{itemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null">
+        #{materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="productiondate != null">
+        #{productiondate,jdbcType=VARCHAR},
+      </if>
+      <if test="jobid != null">
+        #{jobid,jdbcType=CHAR},
+      </if>
+      <if test="materspec != null">
+        #{materspec,jdbcType=VARCHAR},
+      </if>
+      <if test="printqty != null">
+        #{printqty,jdbcType=INTEGER},
+      </if>
+      <if test="ubatchid != null">
+        #{ubatchid,jdbcType=VARCHAR},
+      </if>
+      <if test="qtysum != null">
+        #{qtysum,jdbcType=INTEGER},
+      </if>
+      <if test="boxszie != null">
+        #{boxszie,jdbcType=VARCHAR},
+      </if>
+      <if test="notfull != null">
+        #{notfull,jdbcType=VARCHAR},
+      </if>
+      <if test="cncolor != null">
+        #{cncolor,jdbcType=VARCHAR},
+      </if>
+      <if test="machineid != null">
+        #{machineid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.muban.pojo.LabeltoprintExample" resultType="java.lang.Integer">
+    select count(*) from LabelToPrint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LabelToPrint
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sapmaterialno != null">
+        SAPMaterialNo = #{record.sapmaterialno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customername != null">
+        CustomerName = #{record.customername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productno != null">
+        ProductNo = #{record.productno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productname != null">
+        ProductName = #{record.productname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionindex != null">
+        VersionIndex = #{record.versionindex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialno != null">
+        MaterialNo = #{record.materialno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialbatchno != null">
+        MaterialBatchNo = #{record.materialbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employno != null">
+        EmployNo = #{record.employno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tonername != null">
+        TonerName = #{record.tonername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tonerbatchno != null">
+        TonerBatchNo = #{record.tonerbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        Weight = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.differentcode != null">
+        DifferentCode = #{record.differentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        Size = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vendorcode != null">
+        VendorCode = #{record.vendorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uptimes != null">
+        UpTimes = #{record.uptimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.netweight != null">
+        NetWeight = #{record.netweight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.grossweight != null">
+        GrossWeight = #{record.grossweight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.modelno != null">
+        ModelNo = #{record.modelno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialdescription != null">
+        MaterialDescription = #{record.materialdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pono != null">
+        PoNo = #{record.pono,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sapmaterialbatchno != null">
+        SAPMaterialBatchNo = #{record.sapmaterialbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.boxsequence != null">
+        BoxSequence = #{record.boxsequence,jdbcType=BIGINT},
+      </if>
+      <if test="record.boxno != null">
+        BoxNo = #{record.boxno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.boxsum != null">
+        BoxSum = #{record.boxsum,jdbcType=BIGINT},
+      </if>
+      <if test="record.workorder != null">
+        WorkOrder = #{record.workorder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uom != null">
+        UOM = #{record.uom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shelflife != null">
+        ShelfLife = #{record.shelflife,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workorderqty != null">
+        WorkOrderQty = #{record.workorderqty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.finishgoodno != null">
+        FinishGoodNo = #{record.finishgoodno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producttools != null">
+        ProductTools = #{record.producttools,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wbs != null">
+        WBS = #{record.wbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printtemplate != null">
+        PrintTemplate = #{record.printtemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        Type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null">
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.printtime != null">
+        PrintTime = #{record.printtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.printbymachin != null">
+        PrintByMachin = #{record.printbymachin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemcode != null">
+        ItemCode = #{record.itemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null">
+        Color = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialname != null">
+        MaterialName = #{record.materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productiondate != null">
+        ProductionDate = #{record.productiondate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobid != null">
+        JobId = #{record.jobid,jdbcType=CHAR},
+      </if>
+      <if test="record.materspec != null">
+        MaterSpec = #{record.materspec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printqty != null">
+        PrintQty = #{record.printqty,jdbcType=INTEGER},
+      </if>
+      <if test="record.ubatchid != null">
+        UBatchId = #{record.ubatchid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qtysum != null">
+        QtySum = #{record.qtysum,jdbcType=INTEGER},
+      </if>
+      <if test="record.boxszie != null">
+        BoxSzie = #{record.boxszie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notfull != null">
+        NotFull = #{record.notfull,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cncolor != null">
+        cnColor = #{record.cncolor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.machineid != null">
+        MachineId = #{record.machineid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LabelToPrint
+    set ID = #{record.id,jdbcType=INTEGER},
+      SAPMaterialNo = #{record.sapmaterialno,jdbcType=VARCHAR},
+      CustomerName = #{record.customername,jdbcType=VARCHAR},
+      ProductNo = #{record.productno,jdbcType=VARCHAR},
+      ProductName = #{record.productname,jdbcType=VARCHAR},
+      VersionIndex = #{record.versionindex,jdbcType=VARCHAR},
+      MaterialNo = #{record.materialno,jdbcType=VARCHAR},
+      MaterialBatchNo = #{record.materialbatchno,jdbcType=VARCHAR},
+      EmployNo = #{record.employno,jdbcType=VARCHAR},
+      TonerName = #{record.tonername,jdbcType=VARCHAR},
+      TonerBatchNo = #{record.tonerbatchno,jdbcType=VARCHAR},
+      Weight = #{record.weight,jdbcType=DECIMAL},
+      DifferentCode = #{record.differentcode,jdbcType=VARCHAR},
+      Size = #{record.size,jdbcType=VARCHAR},
+      VendorCode = #{record.vendorcode,jdbcType=VARCHAR},
+      UpTimes = #{record.uptimes,jdbcType=INTEGER},
+      NetWeight = #{record.netweight,jdbcType=DECIMAL},
+      GrossWeight = #{record.grossweight,jdbcType=DECIMAL},
+      ModelNo = #{record.modelno,jdbcType=VARCHAR},
+      MaterialDescription = #{record.materialdescription,jdbcType=VARCHAR},
+      PoNo = #{record.pono,jdbcType=VARCHAR},
+      SAPMaterialBatchNo = #{record.sapmaterialbatchno,jdbcType=VARCHAR},
+      BoxSequence = #{record.boxsequence,jdbcType=BIGINT},
+      BoxNo = #{record.boxno,jdbcType=VARCHAR},
+      BoxSum = #{record.boxsum,jdbcType=BIGINT},
+      WorkOrder = #{record.workorder,jdbcType=VARCHAR},
+      UOM = #{record.uom,jdbcType=VARCHAR},
+      ShelfLife = #{record.shelflife,jdbcType=VARCHAR},
+      WorkOrderQty = #{record.workorderqty,jdbcType=DECIMAL},
+      FinishGoodNo = #{record.finishgoodno,jdbcType=VARCHAR},
+      ProductTools = #{record.producttools,jdbcType=VARCHAR},
+      WBS = #{record.wbs,jdbcType=VARCHAR},
+      PrintTemplate = #{record.printtemplate,jdbcType=VARCHAR},
+      Status = #{record.status,jdbcType=VARCHAR},
+      Type = #{record.type,jdbcType=VARCHAR},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      PrintTime = #{record.printtime,jdbcType=TIMESTAMP},
+      PrintByMachin = #{record.printbymachin,jdbcType=VARCHAR},
+      ItemCode = #{record.itemcode,jdbcType=VARCHAR},
+      Color = #{record.color,jdbcType=VARCHAR},
+      MaterialName = #{record.materialname,jdbcType=VARCHAR},
+      ProductionDate = #{record.productiondate,jdbcType=VARCHAR},
+      JobId = #{record.jobid,jdbcType=CHAR},
+      MaterSpec = #{record.materspec,jdbcType=VARCHAR},
+      PrintQty = #{record.printqty,jdbcType=INTEGER},
+      UBatchId = #{record.ubatchid,jdbcType=VARCHAR},
+      QtySum = #{record.qtysum,jdbcType=INTEGER},
+      BoxSzie = #{record.boxszie,jdbcType=VARCHAR},
+      NotFull = #{record.notfull,jdbcType=VARCHAR},
+      cnColor = #{record.cncolor,jdbcType=VARCHAR},
+      MachineId = #{record.machineid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.muban.pojo.Labeltoprint">
+    update LabelToPrint
+    <set>
+      <if test="sapmaterialno != null">
+        SAPMaterialNo = #{sapmaterialno,jdbcType=VARCHAR},
+      </if>
+      <if test="customername != null">
+        CustomerName = #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="productno != null">
+        ProductNo = #{productno,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null">
+        ProductName = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="versionindex != null">
+        VersionIndex = #{versionindex,jdbcType=VARCHAR},
+      </if>
+      <if test="materialno != null">
+        MaterialNo = #{materialno,jdbcType=VARCHAR},
+      </if>
+      <if test="materialbatchno != null">
+        MaterialBatchNo = #{materialbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="employno != null">
+        EmployNo = #{employno,jdbcType=VARCHAR},
+      </if>
+      <if test="tonername != null">
+        TonerName = #{tonername,jdbcType=VARCHAR},
+      </if>
+      <if test="tonerbatchno != null">
+        TonerBatchNo = #{tonerbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        Weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="differentcode != null">
+        DifferentCode = #{differentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        Size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorcode != null">
+        VendorCode = #{vendorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="uptimes != null">
+        UpTimes = #{uptimes,jdbcType=INTEGER},
+      </if>
+      <if test="netweight != null">
+        NetWeight = #{netweight,jdbcType=DECIMAL},
+      </if>
+      <if test="grossweight != null">
+        GrossWeight = #{grossweight,jdbcType=DECIMAL},
+      </if>
+      <if test="modelno != null">
+        ModelNo = #{modelno,jdbcType=VARCHAR},
+      </if>
+      <if test="materialdescription != null">
+        MaterialDescription = #{materialdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="pono != null">
+        PoNo = #{pono,jdbcType=VARCHAR},
+      </if>
+      <if test="sapmaterialbatchno != null">
+        SAPMaterialBatchNo = #{sapmaterialbatchno,jdbcType=VARCHAR},
+      </if>
+      <if test="boxsequence != null">
+        BoxSequence = #{boxsequence,jdbcType=BIGINT},
+      </if>
+      <if test="boxno != null">
+        BoxNo = #{boxno,jdbcType=VARCHAR},
+      </if>
+      <if test="boxsum != null">
+        BoxSum = #{boxsum,jdbcType=BIGINT},
+      </if>
+      <if test="workorder != null">
+        WorkOrder = #{workorder,jdbcType=VARCHAR},
+      </if>
+      <if test="uom != null">
+        UOM = #{uom,jdbcType=VARCHAR},
+      </if>
+      <if test="shelflife != null">
+        ShelfLife = #{shelflife,jdbcType=VARCHAR},
+      </if>
+      <if test="workorderqty != null">
+        WorkOrderQty = #{workorderqty,jdbcType=DECIMAL},
+      </if>
+      <if test="finishgoodno != null">
+        FinishGoodNo = #{finishgoodno,jdbcType=VARCHAR},
+      </if>
+      <if test="producttools != null">
+        ProductTools = #{producttools,jdbcType=VARCHAR},
+      </if>
+      <if test="wbs != null">
+        WBS = #{wbs,jdbcType=VARCHAR},
+      </if>
+      <if test="printtemplate != null">
+        PrintTemplate = #{printtemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printtime != null">
+        PrintTime = #{printtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printbymachin != null">
+        PrintByMachin = #{printbymachin,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcode != null">
+        ItemCode = #{itemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        Color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null">
+        MaterialName = #{materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="productiondate != null">
+        ProductionDate = #{productiondate,jdbcType=VARCHAR},
+      </if>
+      <if test="jobid != null">
+        JobId = #{jobid,jdbcType=CHAR},
+      </if>
+      <if test="materspec != null">
+        MaterSpec = #{materspec,jdbcType=VARCHAR},
+      </if>
+      <if test="printqty != null">
+        PrintQty = #{printqty,jdbcType=INTEGER},
+      </if>
+      <if test="ubatchid != null">
+        UBatchId = #{ubatchid,jdbcType=VARCHAR},
+      </if>
+      <if test="qtysum != null">
+        QtySum = #{qtysum,jdbcType=INTEGER},
+      </if>
+      <if test="boxszie != null">
+        BoxSzie = #{boxszie,jdbcType=VARCHAR},
+      </if>
+      <if test="notfull != null">
+        NotFull = #{notfull,jdbcType=VARCHAR},
+      </if>
+      <if test="cncolor != null">
+        cnColor = #{cncolor,jdbcType=VARCHAR},
+      </if>
+      <if test="machineid != null">
+        MachineId = #{machineid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.muban.pojo.Labeltoprint">
+    update LabelToPrint
+    set SAPMaterialNo = #{sapmaterialno,jdbcType=VARCHAR},
+      CustomerName = #{customername,jdbcType=VARCHAR},
+      ProductNo = #{productno,jdbcType=VARCHAR},
+      ProductName = #{productname,jdbcType=VARCHAR},
+      VersionIndex = #{versionindex,jdbcType=VARCHAR},
+      MaterialNo = #{materialno,jdbcType=VARCHAR},
+      MaterialBatchNo = #{materialbatchno,jdbcType=VARCHAR},
+      EmployNo = #{employno,jdbcType=VARCHAR},
+      TonerName = #{tonername,jdbcType=VARCHAR},
+      TonerBatchNo = #{tonerbatchno,jdbcType=VARCHAR},
+      Weight = #{weight,jdbcType=DECIMAL},
+      DifferentCode = #{differentcode,jdbcType=VARCHAR},
+      Size = #{size,jdbcType=VARCHAR},
+      VendorCode = #{vendorcode,jdbcType=VARCHAR},
+      UpTimes = #{uptimes,jdbcType=INTEGER},
+      NetWeight = #{netweight,jdbcType=DECIMAL},
+      GrossWeight = #{grossweight,jdbcType=DECIMAL},
+      ModelNo = #{modelno,jdbcType=VARCHAR},
+      MaterialDescription = #{materialdescription,jdbcType=VARCHAR},
+      PoNo = #{pono,jdbcType=VARCHAR},
+      SAPMaterialBatchNo = #{sapmaterialbatchno,jdbcType=VARCHAR},
+      BoxSequence = #{boxsequence,jdbcType=BIGINT},
+      BoxNo = #{boxno,jdbcType=VARCHAR},
+      BoxSum = #{boxsum,jdbcType=BIGINT},
+      WorkOrder = #{workorder,jdbcType=VARCHAR},
+      UOM = #{uom,jdbcType=VARCHAR},
+      ShelfLife = #{shelflife,jdbcType=VARCHAR},
+      WorkOrderQty = #{workorderqty,jdbcType=DECIMAL},
+      FinishGoodNo = #{finishgoodno,jdbcType=VARCHAR},
+      ProductTools = #{producttools,jdbcType=VARCHAR},
+      WBS = #{wbs,jdbcType=VARCHAR},
+      PrintTemplate = #{printtemplate,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      PrintTime = #{printtime,jdbcType=TIMESTAMP},
+      PrintByMachin = #{printbymachin,jdbcType=VARCHAR},
+      ItemCode = #{itemcode,jdbcType=VARCHAR},
+      Color = #{color,jdbcType=VARCHAR},
+      MaterialName = #{materialname,jdbcType=VARCHAR},
+      ProductionDate = #{productiondate,jdbcType=VARCHAR},
+      JobId = #{jobid,jdbcType=CHAR},
+      MaterSpec = #{materspec,jdbcType=VARCHAR},
+      PrintQty = #{printqty,jdbcType=INTEGER},
+      UBatchId = #{ubatchid,jdbcType=VARCHAR},
+      QtySum = #{qtysum,jdbcType=INTEGER},
+      BoxSzie = #{boxszie,jdbcType=VARCHAR},
+      NotFull = #{notfull,jdbcType=VARCHAR},
+      cnColor = #{cncolor,jdbcType=VARCHAR},
+      MachineId = #{machineid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, SAPMaterialNo, CustomerName, ProductNo, ProductName, VersionIndex, MaterialNo,
+    MaterialBatchNo, EmployNo, TonerName, TonerBatchNo, Weight, DifferentCode, Size,
+    VendorCode, UpTimes, NetWeight, GrossWeight, ModelNo, MaterialDescription, PoNo,
+    SAPMaterialBatchNo, BoxSequence, BoxNo, BoxSum, WorkOrder, UOM, ShelfLife, WorkOrderQty,
+    FinishGoodNo, ProductTools, WBS, PrintTemplate, Status, Type, UpdateTime, PrintTime,
+    PrintByMachin, ItemCode, Color, MaterialName, ProductionDate, JobId, MaterSpec, PrintQty,
+    UBatchId, QtySum, BoxSzie, NotFull, cnColor, MachineId
+  </sql>
+
+
+</mapper>

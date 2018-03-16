@@ -51,8 +51,8 @@
         </javaClientGenerator>
         <!-- 指定数据库表 -->
 
-        <table tableName="LabelJob"></table>
-        <table tableName="LabelToPrint"></table>
+        <table tableName="LabelPrintConfig"></table>
+
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
             <columnOverride column="" javaType="" />

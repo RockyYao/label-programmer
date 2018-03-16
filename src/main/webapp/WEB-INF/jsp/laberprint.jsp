@@ -190,7 +190,9 @@
 						</div> <!-- /input-group -->
 					</li>--%>
 					<li><a href="customer.action" class="active"><i
-							class="fa fa-edit fa-fw"></i>标签打印</a></li>
+							class="fa fa-edit fa-fw"></i>标签打印</a>
+					</li>
+						<li><a href="config.do" class="active"><i class="fa fa-edit fa-fw"></i>标签与打印机配置</a></li>
 
 				</ul>
 			</div>
@@ -434,14 +436,7 @@
 			}
 
         }*/
-		function deleteCustomer(id) {
-			if(confirm('确实要删除该客户吗?')) {
-				$.post("/customer/delete.action",{"id":id},function(data){
-					alert("客户删除更新成功！");
-					window.location.reload();
-				});
-			}
-		}
+
 	</script>
 
 </body>

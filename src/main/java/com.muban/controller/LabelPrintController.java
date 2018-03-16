@@ -423,11 +423,103 @@ public class LabelPrintController {
 
 
     //打印汽车其他件
+    @RequestMapping("printCar2")
+    @ResponseBody
+    public String printCar2(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
 
 
+        Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
+        //print
+        UUID uuid=UUID.randomUUID();
+        String uuidSid=String.valueOf(uuid);
+        labeltoprint.setJobid(uuidSid);
+
+        Date date=new Date();
+        // SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        labeltoprint.setUpdatetime(date);
+        labeltoprint.setPrinttime(date);
+        labeltoprint.setPrintqty(1);
+        labeltoprint.setStatus("P");
+        labeltoprint.setQtysum(qtysum);
+        labeltoprint.setBoxszie(boxszie);
+        labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
+        labeltoprint.setBoxsum(Long.valueOf(boxsum));
+        labeltoprint.setPrinttemplate("Tp006.yncx");
+
+        labeltoprint.setProductiondate(String.valueOf(date));
 
 
+        //获取IP JOB
+        String Ip=res.getRemoteAddr();
 
+        Labeljob labeljob=new Labeljob();
+
+        labeljob.setJobid(uuidSid);
+        labeljob.setCreateddttm(date);
+        labeljob.setUpdateddttm(date);
+        labeljob.setTemplate("Tp006.yncx");
+        labeljob.setJobtype("P");
+        labeljob.setJobstatus(0);
+
+        labeljob.setJobowner(Ip);
+        labeljob.setUpdatedby(Ip);
+
+        labelPrintService.pringLabel(labeljob,labeltoprint);
+        return "success";
+    }
+
+
+    @RequestMapping("viewCar2")
+    @ResponseBody
+    public String viewCar2(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
+
+
+        Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
+        //print
+        UUID uuid=UUID.randomUUID();
+        String uuidSid=String.valueOf(uuid);
+        labeltoprint.setJobid(uuidSid);
+
+        Date date=new Date();
+        // SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        labeltoprint.setUpdatetime(date);
+        labeltoprint.setPrinttime(date);
+        labeltoprint.setPrintqty(1);
+        labeltoprint.setStatus("V");
+        labeltoprint.setQtysum(qtysum);
+        labeltoprint.setBoxszie(boxszie);
+        labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
+        labeltoprint.setBoxsum(Long.valueOf(boxsum));
+        labeltoprint.setPrinttemplate("Tp006.yncx");
+
+        labeltoprint.setProductiondate(String.valueOf(date));
+
+
+        //获取IP JOB
+        String Ip=res.getRemoteAddr();
+
+        Labeljob labeljob=new Labeljob();
+
+        labeljob.setJobid(uuidSid);
+        labeljob.setCreateddttm(date);
+        labeljob.setUpdateddttm(date);
+        labeljob.setTemplate("Tp006.yncx");
+        labeljob.setJobtype("V");
+        labeljob.setJobstatus(0);
+
+        labeljob.setJobowner(Ip);
+        labeljob.setUpdatedby(Ip);
+
+        labelPrintService.pringLabel(labeljob,labeltoprint);
+        return "success";
+    }
+
+    @RequestMapping("config.do")
+    public String config(){
+
+        return "config";
+
+    }
 /*    @RequestMapping("printCar")
     public ModelAndView printCar() {
 

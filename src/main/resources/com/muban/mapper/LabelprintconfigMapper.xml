@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.muban.mapper.LabelprintconfigMapper" >
+  <resultMap id="BaseResultMap" type="com.muban.pojo.Labelprintconfig" >
+    <id column="ConfigID" property="configid" jdbcType="NUMERIC" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="TemplateName" property="templatename" jdbcType="VARCHAR" />
+    <result column="PrinterName" property="printername" jdbcType="VARCHAR" />
+    <result column="CreatedBy" property="createdby" jdbcType="VARCHAR" />
+    <result column="CreatedDttm" property="createddttm" jdbcType="TIMESTAMP" />
+    <result column="UpdatedBy" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UpdatedDttm" property="updateddttm" jdbcType="TIMESTAMP" />
+    <result column="PrinterIP" property="printerip" jdbcType="VARCHAR" />
+    <result column="Status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ConfigID, IP, TemplateName, PrinterName, CreatedBy, CreatedDttm, UpdatedBy, UpdatedDttm, 
+    PrinterIP, Status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.muban.pojo.LabelprintconfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from LabelPrintConfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LabelPrintConfig
+    where ConfigID = #{configid,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LabelPrintConfig
+    where ConfigID = #{configid,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.muban.pojo.LabelprintconfigExample" >
+    delete from LabelPrintConfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.muban.pojo.Labelprintconfig" >
+    insert into LabelPrintConfig (ConfigID, IP, TemplateName, 
+      PrinterName, CreatedBy, CreatedDttm, 
+      UpdatedBy, UpdatedDttm, PrinterIP, 
+      Status)
+    values (#{configid,jdbcType=NUMERIC}, #{ip,jdbcType=VARCHAR}, #{templatename,jdbcType=VARCHAR}, 
+      #{printername,jdbcType=VARCHAR}, #{createdby,jdbcType=VARCHAR}, #{createddttm,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateddttm,jdbcType=TIMESTAMP}, #{printerip,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.muban.pojo.Labelprintconfig" >
+    insert into LabelPrintConfig
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="configid != null" >
+        ConfigID,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="templatename != null" >
+        TemplateName,
+      </if>
+      <if test="printername != null" >
+        PrinterName,
+      </if>
+      <if test="createdby != null" >
+        CreatedBy,
+      </if>
+      <if test="createddttm != null" >
+        CreatedDttm,
+      </if>
+      <if test="updatedby != null" >
+        UpdatedBy,
+      </if>
+      <if test="updateddttm != null" >
+        UpdatedDttm,
+      </if>
+      <if test="printerip != null" >
+        PrinterIP,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="configid != null" >
+        #{configid,jdbcType=NUMERIC},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="templatename != null" >
+        #{templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="printername != null" >
+        #{printername,jdbcType=VARCHAR},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="createddttm != null" >
+        #{createddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateddttm != null" >
+        #{updateddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printerip != null" >
+        #{printerip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.muban.pojo.LabelprintconfigExample" resultType="java.lang.Integer" >
+    select count(*) from LabelPrintConfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update LabelPrintConfig
+    <set >
+      <if test="record.configid != null" >
+        ConfigID = #{record.configid,jdbcType=NUMERIC},
+      </if>
+      <if test="record.ip != null" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templatename != null" >
+        TemplateName = #{record.templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printername != null" >
+        PrinterName = #{record.printername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdby != null" >
+        CreatedBy = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createddttm != null" >
+        CreatedDttm = #{record.createddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedby != null" >
+        UpdatedBy = #{record.updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateddttm != null" >
+        UpdatedDttm = #{record.updateddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.printerip != null" >
+        PrinterIP = #{record.printerip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        Status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update LabelPrintConfig
+    set ConfigID = #{record.configid,jdbcType=NUMERIC},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      TemplateName = #{record.templatename,jdbcType=VARCHAR},
+      PrinterName = #{record.printername,jdbcType=VARCHAR},
+      CreatedBy = #{record.createdby,jdbcType=VARCHAR},
+      CreatedDttm = #{record.createddttm,jdbcType=TIMESTAMP},
+      UpdatedBy = #{record.updatedby,jdbcType=VARCHAR},
+      UpdatedDttm = #{record.updateddttm,jdbcType=TIMESTAMP},
+      PrinterIP = #{record.printerip,jdbcType=VARCHAR},
+      Status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.muban.pojo.Labelprintconfig" >
+    update LabelPrintConfig
+    <set >
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="templatename != null" >
+        TemplateName = #{templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="printername != null" >
+        PrinterName = #{printername,jdbcType=VARCHAR},
+      </if>
+      <if test="createdby != null" >
+        CreatedBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="createddttm != null" >
+        CreatedDttm = #{createddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UpdatedBy = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateddttm != null" >
+        UpdatedDttm = #{updateddttm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="printerip != null" >
+        PrinterIP = #{printerip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ConfigID = #{configid,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.muban.pojo.Labelprintconfig" >
+    update LabelPrintConfig
+    set IP = #{ip,jdbcType=VARCHAR},
+      TemplateName = #{templatename,jdbcType=VARCHAR},
+      PrinterName = #{printername,jdbcType=VARCHAR},
+      CreatedBy = #{createdby,jdbcType=VARCHAR},
+      CreatedDttm = #{createddttm,jdbcType=TIMESTAMP},
+      UpdatedBy = #{updatedby,jdbcType=VARCHAR},
+      UpdatedDttm = #{updateddttm,jdbcType=TIMESTAMP},
+      PrinterIP = #{printerip,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=VARCHAR}
+    where ConfigID = #{configid,jdbcType=NUMERIC}
+  </update>
+</mapper>

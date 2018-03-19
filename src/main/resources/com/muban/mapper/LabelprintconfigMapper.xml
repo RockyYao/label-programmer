@@ -226,6 +226,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <select id="selectPrintName" parameterType="String" resultType="String">
+
+    SELECT PrinterName from LabelPrintConfig
+
+    WHERE  IP=#{ip} AND TemplateName=#{templatename}
+
+  </select>
+
+
+
   <update id="updateByExample" parameterType="map" >
     update LabelPrintConfig
     set ConfigID = #{record.configid,jdbcType=NUMERIC},

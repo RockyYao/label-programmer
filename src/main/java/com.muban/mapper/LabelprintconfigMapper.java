@@ -29,4 +29,6 @@ public interface LabelprintconfigMapper {
     int updateByPrimaryKeySelective(Labelprintconfig record);
 
     int updateByPrimaryKey(Labelprintconfig record);
+
+    String selectPrintName(String ip,String templateName);
 }

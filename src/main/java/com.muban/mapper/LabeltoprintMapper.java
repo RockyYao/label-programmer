@@ -6,8 +6,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+
 @Repository
 public interface LabeltoprintMapper {
+
+
     int countByExample(LabeltoprintExample example);
 
     int deleteByExample(LabeltoprintExample example);
@@ -29,4 +33,7 @@ public interface LabeltoprintMapper {
     int updateByPrimaryKeySelective(Labeltoprint record);
 
     int updateByPrimaryKey(Labeltoprint record);
+
+
+
 }

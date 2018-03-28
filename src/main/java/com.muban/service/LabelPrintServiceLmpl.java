@@ -89,7 +89,6 @@ public class LabelPrintServiceLmpl implements LabelPrintService {
     }
 
 
-
     @Override
     public void pringLabel(Labeljob labeljob, Labeltoprint labeltoprint) {
 

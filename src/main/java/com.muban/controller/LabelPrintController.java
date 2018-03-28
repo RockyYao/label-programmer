@@ -16,10 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class LabelPrintController {
@@ -53,6 +50,7 @@ public class LabelPrintController {
 
         List list=new ArrayList();
         int i;
+        int a=boxSum.getQtySum();
         if (boxSum.getLastQty()!=0){
 
 
@@ -67,6 +65,8 @@ public class LabelPrintController {
                     labeltoprint.setBoxszie("大");
                     labeltoprint.setQtysum(boxSum.getLSize());
                     list.add(labeltoprint);
+
+
             }
 
             Labeltoprint labeltoprint = labelPrintService.findTrwALL(workorder);
@@ -86,6 +86,7 @@ public class LabelPrintController {
                 labeltoprint.setBoxno(String.valueOf(i+1));
                 labeltoprint.setBoxszie("大");
                 list.add(labeltoprint);
+
 
             }
 
@@ -108,6 +109,7 @@ public class LabelPrintController {
                 labeltoprint.setBoxszie("中");
                 list.add(labeltoprint);
 
+
             }
 
             Labeltoprint labeltoprint = labelPrintService.findTrwALL(workorder);
@@ -116,6 +118,7 @@ public class LabelPrintController {
             labeltoprint.setBoxszie("小");
             labeltoprint.setQtysum(boxSum.getQtySum()-boxSum.getMSize()*boxSum.getMsizeQty());
             list.add(labeltoprint);
+
 
         }else if (boxSum.getLsizeQty()!=0&&boxSum.getSsizeQty()==0&&boxSum.getMsizeQty()==0){
 
@@ -126,6 +129,7 @@ public class LabelPrintController {
                 labeltoprint.setBoxszie("大");
                 labeltoprint.setQtysum(boxSum.getLSize());
                 list.add(labeltoprint);
+
             }
 
             Labeltoprint labeltoprint = labelPrintService.findTrwALL(workorder);
@@ -136,6 +140,7 @@ public class LabelPrintController {
             list.add(labeltoprint);
 
 
+
         }else if (boxSum.getLsizeQty()==0&&boxSum.getSsizeQty()!=0&&boxSum.getMsizeQty()==0){
 
             for (i=0;i<boxSum.getMsizeQty()-1;i++){
@@ -144,6 +149,7 @@ public class LabelPrintController {
                 labeltoprint.setBoxno(String.valueOf(i+1));
                 labeltoprint.setBoxszie("中");
                 list.add(labeltoprint);
+
 
             }
 
@@ -166,6 +172,7 @@ public class LabelPrintController {
                 labeltoprint.setBoxszie("小");
                 list.add(labeltoprint);
 
+
             }
 
             Labeltoprint labeltoprint = labelPrintService.findTrwALL(workorder);
@@ -174,6 +181,7 @@ public class LabelPrintController {
             labeltoprint.setBoxszie("小");
             labeltoprint.setQtysum(boxSum.getQtySum()-boxSum.getMSize()*(boxSum.getSsizeQty()-1));
             list.add(labeltoprint);
+
 
 
 
@@ -192,6 +200,7 @@ public class LabelPrintController {
                     labeltoprint.setBoxszie("大");
                     labeltoprint.setQtysum(boxSum.getLSize());
                     list.add(labeltoprint);
+
                 }
 
             }
@@ -218,6 +227,7 @@ public class LabelPrintController {
                     labeltoprint.setBoxszie("小");
                     list.add(labeltoprint);
 
+
                 }
 
 
@@ -230,6 +240,7 @@ public class LabelPrintController {
 
 
 
+        mv.addObject("a",a);
         mv.addObject("list",list);
         mv.addObject("boxsum",boxSum);
     //    mv.addObject("label", labeltoprint);
@@ -240,7 +251,7 @@ public class LabelPrintController {
     //打印TRW
     @RequestMapping("printTrw")
     @ResponseBody
-    public String printTrw(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
+    public String printTrw(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno,String custIndustry2) {
 
 
         Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
@@ -259,7 +270,7 @@ public class LabelPrintController {
         labeltoprint.setBoxszie(boxszie);
         labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
         labeltoprint.setBoxsum(Long.valueOf(boxsum));
-        labeltoprint.setPrinttemplate("Tp008.yncx");
+        labeltoprint.setPrinttemplate("tp008"+custIndustry2+".yncx");
 
         labeltoprint.setProductiondate(String.valueOf(date));
         //获取IP JOB
@@ -270,7 +281,7 @@ public class LabelPrintController {
         labeljob.setJobid(uuidSid);
         labeljob.setCreateddttm(date);
         labeljob.setUpdateddttm(date);
-        labeljob.setTemplate("Tp008.yncx");
+        labeljob.setTemplate("tp008"+custIndustry2+".yncx");
         labeljob.setJobtype("P");
         labeljob.setJobstatus(0);
 
@@ -285,7 +296,7 @@ public class LabelPrintController {
 
     @RequestMapping("viewTrw")
     @ResponseBody
-    public String viewTrw(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
+    public String viewTrw(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno,String custIndustry2) {
 
 
         Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
@@ -304,7 +315,7 @@ public class LabelPrintController {
         labeltoprint.setBoxszie(boxszie);
         labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
         labeltoprint.setBoxsum(Long.valueOf(boxsum));
-        labeltoprint.setPrinttemplate("Tp008.yncx");
+        labeltoprint.setPrinttemplate("tp008"+custIndustry2+".yncx");
 
         labeltoprint.setProductiondate(String.valueOf(date));
         //获取IP JOB
@@ -315,7 +326,7 @@ public class LabelPrintController {
         labeljob.setJobid(uuidSid);
         labeljob.setCreateddttm(date);
         labeljob.setUpdateddttm(date);
-        labeljob.setTemplate("Tp008.yncx");
+        labeljob.setTemplate("tp008"+custIndustry2+".yncx");
         labeljob.setJobtype("V");
         labeljob.setJobstatus(0);
 
@@ -330,7 +341,7 @@ public class LabelPrintController {
     //打印汽车成品件
     @RequestMapping("printCar")
     @ResponseBody
-    public String printCar(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
+    public String printCar(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno,String custIndustry2) {
 
 
         Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
@@ -349,7 +360,7 @@ public class LabelPrintController {
         labeltoprint.setBoxszie(boxszie);
         labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
         labeltoprint.setBoxsum(Long.valueOf(boxsum));
-        labeltoprint.setPrinttemplate("Tp007.yncx");
+        labeltoprint.setPrinttemplate("tp007"+custIndustry2+"yncx");
 
         labeltoprint.setProductiondate(String.valueOf(date));
 
@@ -362,7 +373,7 @@ public class LabelPrintController {
         labeljob.setJobid(uuidSid);
         labeljob.setCreateddttm(date);
         labeljob.setUpdateddttm(date);
-        labeljob.setTemplate("Tp007.yncx");
+        labeljob.setTemplate("tp007"+custIndustry2+"yncx");
         labeljob.setJobtype("P");
         labeljob.setJobstatus(0);
 
@@ -376,7 +387,7 @@ public class LabelPrintController {
     //View Car
     @RequestMapping("viewCar")
     @ResponseBody
-    public String viewCar(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
+    public String viewCar(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno,String custIndustry2) {
 
 
         Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
@@ -395,7 +406,7 @@ public class LabelPrintController {
         labeltoprint.setBoxszie(boxszie);
         labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
         labeltoprint.setBoxsum(Long.valueOf(boxsum));
-        labeltoprint.setPrinttemplate("Tp007.yncx");
+        labeltoprint.setPrinttemplate("tp007"+custIndustry2+"yncx");
 
         labeltoprint.setProductiondate(String.valueOf(date));
 
@@ -408,12 +419,13 @@ public class LabelPrintController {
         labeljob.setJobid(uuidSid);
         labeljob.setCreateddttm(date);
         labeljob.setUpdateddttm(date);
-        labeljob.setTemplate("Tp007.yncx");
+        labeljob.setTemplate("tp007"+custIndustry2+"yncx");
         labeljob.setJobtype("V");
         labeljob.setJobstatus(0);
 
         labeljob.setJobowner(Ip);
         labeljob.setUpdatedby(Ip);
+
 
         labelPrintService.pringLabel(labeljob,labeltoprint);
         return "success";
@@ -425,7 +437,7 @@ public class LabelPrintController {
     //打印汽车其他件
     @RequestMapping("printCar2")
     @ResponseBody
-    public String printCar2(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
+    public String printCar2(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno,String custIndustry2) {
 
 
         Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
@@ -444,7 +456,7 @@ public class LabelPrintController {
         labeltoprint.setBoxszie(boxszie);
         labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
         labeltoprint.setBoxsum(Long.valueOf(boxsum));
-        labeltoprint.setPrinttemplate("Tp006.yncx");
+        labeltoprint.setPrinttemplate("tp006"+custIndustry2+"yncx");
 
         labeltoprint.setProductiondate(String.valueOf(date));
 
@@ -457,7 +469,7 @@ public class LabelPrintController {
         labeljob.setJobid(uuidSid);
         labeljob.setCreateddttm(date);
         labeljob.setUpdateddttm(date);
-        labeljob.setTemplate("Tp006.yncx");
+        labeljob.setTemplate("tp006"+custIndustry2+"yncx");
         labeljob.setJobtype("P");
         labeljob.setJobstatus(0);
 
@@ -471,7 +483,7 @@ public class LabelPrintController {
 
     @RequestMapping("viewCar2")
     @ResponseBody
-    public String viewCar2(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno) {
+    public String viewCar2(String workorder, HttpServletRequest res,int qtysum,String boxszie,int boxsum,int boxno,String custIndustry2) {
 
 
         Labeltoprint labeltoprint=labelPrintService.findTrwALL(workorder);
@@ -490,7 +502,7 @@ public class LabelPrintController {
         labeltoprint.setBoxszie(boxszie);
         labeltoprint.setBoxno(String.valueOf(boxno+"/"+boxsum));
         labeltoprint.setBoxsum(Long.valueOf(boxsum));
-        labeltoprint.setPrinttemplate("Tp006.yncx");
+        labeltoprint.setPrinttemplate("tp006"+custIndustry2+"yncx");
 
         labeltoprint.setProductiondate(String.valueOf(date));
 
@@ -503,7 +515,7 @@ public class LabelPrintController {
         labeljob.setJobid(uuidSid);
         labeljob.setCreateddttm(date);
         labeljob.setUpdateddttm(date);
-        labeljob.setTemplate("Tp006.yncx");
+        labeljob.setTemplate("tp006"+custIndustry2+"yncx");
         labeljob.setJobtype("V");
         labeljob.setJobstatus(0);
 
@@ -514,23 +526,7 @@ public class LabelPrintController {
         return "success";
     }
 
-    @RequestMapping("config.do")
-    public String config(){
-
-        return "config";
-
-    }
-/*    @RequestMapping("printCar")
-    public ModelAndView printCar() {
 
 
-    }
-
-
-    @RequestMapping("printCar2")
-    public ModelAndView printCar2() {
-
-
-    }*/
 
 }

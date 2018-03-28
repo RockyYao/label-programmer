@@ -215,33 +215,7 @@
 							<label>请输入工单</label>
 							<input type="text" class="form-control" id="workorder" name="workorder">
 						</div>
-						<%--<div class="form-group">
-							<label for="customerFrom">客户来源</label> 
-							<select	class="form-control" id="customerFrom" placeholder="客户来源" name="custSource">
-								<option value="">--请选择--</option>
-								<c:forEach items="${fromType}" var="item">
-									<option value="${item.dict_id}"<c:if test="${item.dict_id == custSource}"> selected</c:if>>${item.dict_item_name }</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="custIndustry">所属行业</label> 
-							<select	class="form-control" id="custIndustry"  name="custIndustry">
-								<option value="">--请选择--</option>
-								<c:forEach items="${industryType}" var="item">
-									<option value="${item.dict_id}"<c:if test="${item.dict_id == custIndustry}"> selected</c:if>>${item.dict_item_name }</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="custLevel">客户级别</label>
-							<select	class="form-control" id="custLevel" name="custLevel">
-								<option value="">--请选择--</option>
-								<c:forEach items="${levelType}" var="item">
-									<option value="${item.dict_id}"<c:if test="${item.dict_id == custLevel}"> selected</c:if>>${item.dict_item_name }</option>
-								</c:forEach>
-							</select>
-						</div>--%>
+
 						<div class="form-group">
 							<label for="custIndustry">标签种类</label>
 							<select	class="form-control" id="custIndustry"  name="custIndustry" >
@@ -251,6 +225,17 @@
 								<option value="汽车和工业件其他标签" <c:if test="${type eq 'car2'}">selected</c:if>>汽车和工业件其他标签</option>
 							</select>
 						</div>
+						<!-- 选择打印机 -->
+						<div class="form-group">
+							<label for="custIndustry2">请在查询之后打印前选择</label>
+							<select	class="form-control" id="custIndustry2"  name="custIndustry2" >
+								<option value="">--请选择--</option>
+								<option value="1" >打印机1</option>
+								<option value="2">打印机2</option>
+								<option value="3">打印机3</option>
+							</select>
+						</div>
+
 						<button type="submit" class="btn btn-primary">查询</button>
 					</form>
 				</div>
@@ -277,7 +262,7 @@
 									<th >产品编号</th>
 									<th >版本</th>
 									<th >产品数量</th>
-
+									<th>订单数量</th>
 									<th>箱型</th>
 									<th>箱号</th>
 									<th>总箱数</th>
@@ -300,13 +285,14 @@
 								<td >${label.productno}</td>
 								<td >${label.versionindex}</td>
 								<td >${label.qtysum}</td>
-
+								<td>${a}</td>
 								<td>${label.boxszie}</td>
 								<td>${label.boxno}</td>
 								<td>${label.boxsum}</td>
 								<td>
-									<a href="javascript:void(0)" class="btn btn-primary btn-xs" <%--data-toggle="modal" data-target="#customerEditDialog"--%>  onclick = "labelp(${label.workorder},${label.qtysum},${label.boxsum},${label.boxno})">打印</a>
-									<a href="javascript:void(0)" class="btn btn-danger btn-xs" onclick="seek(${label.workorder},${label.qtysum},${label.boxsum},${label.boxno})">预览</a>
+									<a href="javascript:void(0)" class="btn btn-danger btn-xs" <%--data-toggle="modal" data-target="#customerEditDialog"--%>  onclick = "labelp(${label.workorder},${label.qtysum},${label.boxsum},${label.boxno})">打印</a>
+									<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="seek(${label.workorder},${label.qtysum},${label.boxsum},${label.boxno})">预览</a>
+									<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="edit()">编辑</a>
 								</td>
 							</tr>
 							</c:forEach>
@@ -344,31 +330,11 @@
 	<script src="<%=basePath%>js/sb-admin-2.js"></script>
 	
 	<script type="text/javascript">
-		function editCustomer(id) {
-			$.ajax({
-				type:"get",
-				url:"/customer/edit.action",
-				data:{"id":id},
-				success:function(data) {  
-					$("#edit_cust_id").val(data.cust_id);
-					$("#edit_customerName").val(data.cust_name);
-					$("#edit_customerFrom").val(data.cust_source)
-					$("#edit_custIndustry").val(data.cust_industry)
-					$("#edit_custLevel").val(data.cust_level)
-					$("#edit_linkMan").val(data.cust_linkman);
-					$("#edit_phone").val(data.cust_phone);
-					$("#edit_mobile").val(data.cust_mobile);
-					$("#edit_zipcode").val(data.cust_zipcode);
-					$("#edit_address").val(data.cust_address);
-					
-				}
-			});
-		}
 
 
 		function labelp(workorder,qtysum,boxsum,boxno) {
             var selectValue=$('#custIndustry').val();
-
+            var selectValue2=$('#custIndustry2').val();
             var url=null;
             if(selectValue == 'TRW半成品标签'){
                 url="printTrw.do";
@@ -382,19 +348,23 @@
 				url:url,
 				type:'post',
 				async:true,
-				dataType:'json',
-				data:{workorder:workorder,qtysum:qtysum,boxsum:boxsum,boxno:boxno},
+				data:{workorder:workorder,qtysum:qtysum,boxsum:boxsum,boxno:boxno,custIndustry2:selectValue2},
 				success:function (data) {
-					alert(data);
+					alert("打印成功");
                 }
 
 			})
 
         }
 
+        function edit() {
+
+
+        }
+
         function seek(workorder,qtysum,boxsum,boxno) {
             var selectValue=$('#custIndustry').val();
-
+            var selectValue2=$('#custIndustry2').val();
             var url=null;
             if(selectValue == 'TRW半成品标签'){
                 url="viewTrw.do";
@@ -408,10 +378,9 @@
                 url:url,
                 type:'post',
                 async:true,
-                dataType:'json',
-                data:{workorder:workorder,qtysum:qtysum,boxsum:boxsum,boxno:boxno},
+                data:{workorder:workorder,qtysum:qtysum,boxsum:boxsum,boxno:boxno,custIndustry2:selectValue2},
                 success:function (data) {
-                    alert(data);
+                    alert("预览成功");
                 }
 
             })
